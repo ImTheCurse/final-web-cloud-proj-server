@@ -1,5 +1,6 @@
-require('dotenv').config
+require('dotenv').config();
 const express = require('express');
+const { simRouter } = require('./routers/simulationRouter.js');
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -15,7 +16,8 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use('/api',)
+app.use('/api', simRouter);
+app.listen(port);
 
 
 
