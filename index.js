@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 
 app.use('/api', simRouter);
 app.listen(port);
-
+console.log(`listening on port ${port}`)
 
 
 
