@@ -6,6 +6,7 @@ const simRouter = new Router();
 simRouter.post('/login', simController.userLogin);
 simRouter.post('/simulations', simController.fetchSimList);
 simRouter.get('/catalog', simController.fetchCatalog);
+simRouter.get('/enviorment', simController.updateEnviormentInputs);
 
 
 
