@@ -23,9 +23,26 @@ exports.simController = {
 			connection.end();
 			return;
 		}
+	},
+
+	async fetchSimList(req, res) {
+		const { dbConnection } = require('../db_connection.js');
+		const connection = await dbConnection.createConnection();
+
+		const sessionID = req.body.sessionID;
+		try {
+			const simulations =
+				await connection.query('select um.userID,m.model_id,m.model_name,m.created_at from tbl_103_Models m inner join tbl_103_UserModels um on um.modelID = m.model_id inner join tbl_103_SessionAuth sa on sa.id = um.userID where sa.sessionCode like ?', [sessionID]);
+
+			if (simulations[0].length == 0) {
+				res.status(400).send('Invalid sessionID.');
+			}
 
 
-
+			res.status(200).send(simulations[0]);
+		} catch (err) {
+			res.status(500).send(err);
+		}
 	}
 
 }
