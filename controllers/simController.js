@@ -7,6 +7,7 @@ exports.simController = {
 		const sessionID = req.body.sessionID;
 		if (sessionID == null) {
 			res.status(400).send();
+			return;
 		}
 		try {
 			const simulations =
