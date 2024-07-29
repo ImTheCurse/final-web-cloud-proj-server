@@ -7,6 +7,7 @@ const { modelController } = require('../controllers/modelController.js');
 const simRouter = new Router();
 
 simRouter.post('/login', loginController.userLogin);
+simRouter.post('/session/check', loginController.checkSessionID);
 simRouter.post('/simulations', simController.fetchSimList);
 simRouter.post('/messages/recieve', messageController.getMessage);
 simRouter.post('/messages/send', messageController.postMessage);
