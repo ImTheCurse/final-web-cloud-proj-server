@@ -14,6 +14,7 @@ exports.simController = {
 
 			if (simulations[0].length == 0) {
 				res.status(400).send('Invalid sessionID.');
+				return;
 			}
 
 
