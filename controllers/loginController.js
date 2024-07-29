@@ -31,9 +31,7 @@ exports.loginController = {
 	async checkSessionID(req, res) {
 		const { dbConnection } = require('../db_connection.js');
 		const connection = await dbConnection.createConnection();
-
 		const sessionID = await req.body.sessionID;
-
 		if (!sessionID) {
 			res.status(400).send();
 			return;
@@ -45,7 +43,7 @@ exports.loginController = {
 				res.status(400).send();
 				return;
 			}
-			res.status(200).send();
+			res.status(200).send(sessions[0][0]);
 
 		} catch (err) {
 			res.status(500).send(err);
