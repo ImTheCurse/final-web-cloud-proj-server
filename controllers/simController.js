@@ -29,7 +29,7 @@ exports.simController = {
 		const connection = await dbConnection.createConnection();
 
 		try {
-			const catalog = await connection.query('select m.model_name,m.model_created_by,m.created_at,cm.likes,cm.views from tbl_103_Models m inner join tbl_103_CatalogModels cm on cm.modelID = m.model_id');
+			const catalog = await connection.query('select m.model_name,m.model_created_by,m.created_at,cm.likes,cm.views,m.model_image_url from tbl_103_Models m inner join tbl_103_CatalogModels cm on cm.modelID = m.model_id');
 			res.status(200).send(catalog[0]);
 		} catch (err) {
 			res.status(500).send(err);
