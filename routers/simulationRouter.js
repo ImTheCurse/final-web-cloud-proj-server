@@ -13,8 +13,9 @@ simRouter.post('/messages/recieve', messageController.getMessage);
 simRouter.post('/messages/send', messageController.postMessage);
 simRouter.post('/simulations/duplicate', modelController.duplicateModel);
 simRouter.post('/simulations/delete', modelController.deleteModel);
+simRouter.post('/enviorment/update', simController.updateEnvInputs);
 simRouter.get('/catalog', simController.fetchCatalog);
-simRouter.get('/enviorment', simController.updateEnviormentInputs);
+simRouter.get('/enviorment', simController.fetchEnviormentInputs);
 
 
 
