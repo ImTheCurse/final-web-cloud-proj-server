@@ -57,6 +57,7 @@ exports.simController = {
 				return;
 			} catch (err) {
 				res.status(500).send(err);
+				return;
 			}
 		}
 		try {
