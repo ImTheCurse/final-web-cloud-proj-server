@@ -49,5 +49,27 @@ exports.envController = {
 		} catch (err) {
 			res.status(500).send(err);
 		}
+	},
+	async insertEnvInputs(req,res){
+		const { dbConnection } = require('../db_connection.js');
+		const connection = await dbConnection.createConnection();
+		const modelID = req.body.modelID;
+		const density = req.body.airDensity;
+		const temp = req.body.temp;
+		const humidity = req.body.humidity;
+		if (!modelID || !density || !temp || !humidity) {
+			res.status(400).send('Invalid user data');
+			return;
+		}
+		try{
+			connection.execute('insert into tbl_103_EnviormentInput values(?,?,?,?)',[modelID,density,humidity,temp]);
+			res.status(200).send();
+		
+		}catch(err){
+			res.status(500).send(err);
+		}
+	
+	
+	
 	}
 }
