@@ -11,7 +11,7 @@ exports.simController = {
 		}
 		try {
 			const simulations =
-				await connection.query('select um.userID,m.model_id,m.model_name,m.created_at,m.difficulty from tbl_103_Models m inner join tbl_103_UserModels um on um.modelID = m.model_id inner join tbl_103_SessionAuth sa on sa.id = um.userID where sa.sessionCode like ?', [sessionID]);
+				await connection.query('select um.userID,m.model_id,m.model_name,m.created_at,m.difficulty,m.model_image_url from tbl_103_Models m inner join tbl_103_UserModels um on um.modelID = m.model_id inner join tbl_103_SessionAuth sa on sa.id = um.userID where sa.sessionCode like ?', [sessionID]);
 
 			if (simulations[0].length == 0) {
 				res.status(400).send('Invalid sessionID.');
