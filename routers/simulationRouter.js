@@ -19,7 +19,7 @@ simRouter.post('/enviorment/update', envController.updateEnvInputs);
 simRouter.get('/catalog', simController.fetchCatalog);
 simRouter.post('/enviorment/weather', envController.getWeatherData);
 simRouter.post('/enviorment/insert', envController.insertEnvInputs);
-
+simRouter.post('/login/user', loginController.getUserInfo);
 
 module.exports = { simRouter };
 

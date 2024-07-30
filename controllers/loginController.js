@@ -48,5 +48,23 @@ exports.loginController = {
 		} catch (err) {
 			res.status(500).send(err);
 		}
+	},
+	async getUserInfo(req, res) {
+		const { dbConnection } = require('../db_connection.js');
+		const connection = await dbConnection.createConnection();
+
+		const id = req.body.id;
+		if (!id) {
+			res.status(400).send('Invalid user ID');
+			return;
+		}
+		try {
+			const userInfo = await connection.query('select name,image_url from tbl_103_Users where id = ?', [id]);
+			res.status(200).send(userInfo[0][0]);
+
+		} catch (err) {
+			res.status(500).send();
+		}
+
 	}
 }
