@@ -63,7 +63,7 @@ exports.loginController = {
 			return;
 		}
 		try {
-			const userInfo = await connection.query('select name,image_url from tbl_103_Users where id = ?', [id]);
+			const userInfo = await connection.query('select name,image_url,role from tbl_103_Users where id = ?', [id]);
 			res.status(200).send(userInfo[0][0]);
 			await connection.end();
 
