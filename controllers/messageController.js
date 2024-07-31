@@ -34,7 +34,7 @@ exports.messageController = {
 		}
 
 		try {
-			const messages = await connection.query('select * from tbl_103_Messages where reciever_id = ?', [reciever_id]);
+			const messages = await connection.query('select m.reciever_id,m.sender_id,u.name,message from tbl_103_Messages m inner join tbl_103_Users u on m.reciever_id = u.id where reciever_id = ?', [reciever_id]);
 			res.status(200).send(messages[0]);
 			await connection.end();
 		} catch (err) {
