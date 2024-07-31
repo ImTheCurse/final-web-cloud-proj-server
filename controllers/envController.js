@@ -1,3 +1,4 @@
+const { dbConnection } = require('../db_connection.js');
 exports.envController = {
 	async getWeatherData(req, res) {
 		try {
@@ -13,26 +14,26 @@ exports.envController = {
 		}
 	},
 	async fetchEnviormentInputs(req, res) {
-		const { dbConnection } = require('../db_connection.js');
 		const connection = await dbConnection.createConnection();
-		
 		const modelID = req.body.modelID;
-		
-		if(!modelID){
+
+		if (!modelID) {
 			res.status(400).send('Invalid model id.');
+			await connection.end();
 			return;
 		}
-		try{
-			const inputs = await connection.query('select * from tbl_103_EnviormentInput where modelID = ?',[modelID]);
+		try {
+			const inputs = await connection.query('select * from tbl_103_EnviormentInput where modelID = ?', [modelID]);
 			res.status(200).send(inputs[0]);
-		}catch(err){
+			await connection.end();
+		} catch (err) {
 			res.status(500).send();
+			await connection.end();
 		}
-		
+
 
 	},
 	async updateEnvInputs(req, res) {
-		const { dbConnection } = require('../db_connection.js');
 		const connection = await dbConnection.createConnection();
 		const modelID = req.body.modelID;
 		const density = req.body.airDensity;
@@ -40,18 +41,20 @@ exports.envController = {
 		const humidity = req.body.humidity;
 		if (!modelID || !density || !temp || !humidity) {
 			res.status(400).send('Invalid user data');
+			await connection.end();
 			return;
 		}
 		try {
 			connection.execute('update tbl_103_EnviormentInput set airDensity = ?,humidity = ?, temperture = ? where modelID = ?',
 				[density, humidity, temp, modelID]);
 			res.status(200).send();
+			await connection.end();
 		} catch (err) {
 			res.status(500).send(err);
+			await connection.end();
 		}
 	},
-	async insertEnvInputs(req,res){
-		const { dbConnection } = require('../db_connection.js');
+	async insertEnvInputs(req, res) {
 		const connection = await dbConnection.createConnection();
 		const modelID = req.body.modelID;
 		const density = req.body.airDensity;
@@ -59,17 +62,17 @@ exports.envController = {
 		const humidity = req.body.humidity;
 		if (!modelID || !density || !temp || !humidity) {
 			res.status(400).send('Invalid user data');
+			await connection.end();
 			return;
 		}
-		try{
-			connection.execute('insert into tbl_103_EnviormentInput values(?,?,?,?)',[modelID,density,humidity,temp]);
+		try {
+			connection.execute('insert into tbl_103_EnviormentInput values(?,?,?,?)', [modelID, density, humidity, temp]);
 			res.status(200).send();
-		
-		}catch(err){
+			await connection.end();
+
+		} catch (err) {
 			res.status(500).send(err);
+			await connection.end();
 		}
-	
-	
-	
 	}
 }
